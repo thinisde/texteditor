@@ -1,6 +1,9 @@
 #include "input_handler.hpp"
+#include "../class/state.hpp"
 #include <csignal>
+#include <fstream>
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <termios.h>
 #include <unistd.h>
@@ -35,7 +38,7 @@ void enableRawMode() {
   tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
 }
 
-void indexToRowCol(const std::string &s, size_t idx, int &row, int &col) {
+void indexToRowCol(const std::string s, size_t idx, int &row, int &col) {
   row = 1;
   col = 1;
   idx = std::min(idx, s.size());
@@ -58,4 +61,25 @@ void redraw(const std::string &s, size_t cursor) {
   indexToRowCol(s, cursor, row, col);
 
   std::cout << "\033[" << row << ";" << col << "H" << std::flush;
+}
+
+bool loadFile(State &state, const std::string &path) {
+  std::ifstream file(path, std::ios::in | std::ios::binary);
+  if (!file)
+    return false;
+
+  std::ostringstream ss;
+  ss << file.rdbuf();
+  state.input = ss.str();
+
+  return true;
+}
+
+bool saveFile(State &state) {
+  std::ofstream file(state.path, std::ios::out | std::ios::binary);
+  if (!file)
+    return false;
+
+  file << state.input;
+  return true;
 }

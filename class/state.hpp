@@ -12,6 +12,7 @@ public:
 
   size_t cursor = 0;
   std::string input;
+  std::string path;
 
 private:
   uint8_t currentState = 0;

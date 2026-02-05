@@ -1,6 +1,5 @@
 #include "input_event_handler.hpp"
 #include "input_key_event_handler.hpp"
-#include <cstdint>
 #include <poll.h>
 #include <string>
 #include <unistd.h>
@@ -34,17 +33,6 @@ static std::string readEscapeSequence() {
 
   return seq;
 }
-
-static std::string readNextChars(uint8_t len) {
-  std::string seq(len, '\0');
-  for (uint8_t i = 0; i < len; i++) {
-    ssize_t n = ::read(STDIN_FILENO, &seq[i], 1);
-    if (n <= 0)
-      return {};
-  }
-
-  return seq;
-};
 
 int handleEvent(State &state) {
   unsigned char c;

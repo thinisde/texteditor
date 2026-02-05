@@ -1,4 +1,5 @@
 #include "input_key_event_handler.hpp"
+#include "input_handler.hpp"
 
 void moveCursorDown(State &state) {
   size_t cur = state.cursor;
@@ -118,6 +119,10 @@ int handleEnter(State &state) {
   case 2: {
     state.setState(0);
     if (state.getCommand() == ":q!") {
+      return 1;
+    }
+    if (state.getCommand() == ":wq!") {
+      saveFile(state);
       return 1;
     }
     state.setCommand("");

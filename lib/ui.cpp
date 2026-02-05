@@ -1,5 +1,7 @@
 #include "ui.hpp"
 
+#include "../class/state.hpp"
+#include "input_handler.hpp"
 #include <iostream>
 #include <string>
 #include <sys/ioctl.h>
@@ -8,7 +10,7 @@
 int getTerminalRows() {
   winsize w{};
   ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-  return w.ws_row;
+  return (w.ws_row > 0) ? (int)w.ws_row : 24;
 }
 
 void drawStatusLine(const std::string &text) {

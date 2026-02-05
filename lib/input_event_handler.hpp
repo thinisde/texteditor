@@ -8,7 +8,6 @@
 
 // 0 - continue; 1 - break
 int handleEvent(State &state);
-static std::string readNextChars(uint8_t len);
 static bool readByteWithTimeout(unsigned char &out, int timeout_ms);
 static std::string readEscapeSequence();
 
