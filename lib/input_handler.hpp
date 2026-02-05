@@ -1,3 +1,4 @@
+#pragma once
 #ifndef INPUT_HANDLER_HPP
 #define INPUT_HANDLER_HPP
 
@@ -7,6 +8,8 @@
 void disableRawMode();
 void handleSignal(int signal);
 void enableRawMode();
+
+int getTerminalRows();
 
 void redraw(const std::string &s, size_t cursor);
 

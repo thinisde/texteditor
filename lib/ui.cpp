@@ -1,0 +1,70 @@
+#include "ui.hpp"
+
+#include <iostream>
+#include <string>
+#include <sys/ioctl.h>
+#include <unistd.h>
+
+int getTerminalRows() {
+  winsize w{};
+  ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+  return w.ws_row;
+}
+
+void drawStatusLine(const std::string &text) {
+  int rows = getTerminalRows();
+
+  // Save cursor position
+  std::cout << "\033[s";
+
+  // Move to bottom row, column 1
+  std::cout << "\033[" << rows << ";1H";
+
+  // Clear the line
+  std::cout << "\033[2K";
+
+  // Style (optional)
+  std::cout << "\033[7m"; // inverse colors
+
+  // Write text (trim if too long)
+  std::cout << " " << text;
+
+  // Reset style
+  std::cout << "\033[0m";
+
+  // Restore cursor position
+  std::cout << "\033[u" << std::flush;
+}
+
+std::string createStatusLine(State &state, std::string &input) {
+  std::string mode = "VIEW";
+
+  switch (state.getState()) {
+  case 0:
+    mode = "VIEW";
+    break;
+  case 1:
+    mode = "INSERT";
+    break;
+  case 2:
+    mode = "CMD";
+    break;
+  }
+
+  return mode + " | Len: " + std::to_string(input.size()) +
+         (state.getCommand().length() > 0 ? state.getCommand() : "");
+}
+
+void clearStatusLine() {
+  // Save cursor
+  std::cout << "\033[s";
+
+  // Move to bottom row, column 1
+  std::cout << "\033[" << getTerminalRows() << ";1H";
+
+  // Clear entire line
+  std::cout << "\033[2K";
+
+  // Restore cursor
+  std::cout << "\033[u" << std::flush;
+}

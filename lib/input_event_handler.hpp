@@ -1,10 +1,15 @@
+#pragma once
 #ifndef INPUT_EVENT_HANDLER_HPP
 #define INPUT_EVENT_HANDLER_HPP
 
+#include "../class/state.hpp"
 #include <cstdint>
 #include <string>
 
-void handleChar(std::string input, unsigned char c);
-void readNextChars(uint8_t len);
+// 0 - continue; 1 - break
+int handleEvent(State &state, std::string &input, size_t &cursor);
+static std::string readNextChars(uint8_t len);
+static bool readByteWithTimeout(unsigned char &out, int timeout_ms);
+static std::string readEscapeSequence();
 
 #endif

@@ -3,9 +3,8 @@ CXXFLAGS := -std=c++17 -Wall -Wextra -O2
 TARGET   := app
 
 SRC := index.cpp \
-       class/state.cpp \
-       lib/input_handler.cpp \
-       lib/input_event_handler.cpp
+       $(wildcard class/*.cpp) \
+       $(wildcard lib/*.cpp)
 
 OBJ := $(SRC:.cpp=.o)
 
