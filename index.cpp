@@ -1,7 +1,6 @@
 #include "class/state.hpp"
 #include "lib/input_event_handler.hpp"
 #include "lib/input_handler.hpp"
-#include "lib/misc.hpp"
 #include "lib/ui.hpp"
 #include <iostream>
 #include <unistd.h>
@@ -28,6 +27,6 @@ int main() {
   }
 
   disableRawMode();
-  std::cout << "\nYou entered: " << state.input << std::endl;
+  std::cout << std::endl;
   return 0;
 }

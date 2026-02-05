@@ -1,7 +1,6 @@
 #include "input_event_handler.hpp"
 #include "input_key_event_handler.hpp"
 #include <cstdint>
-#include <iostream>
 #include <poll.h>
 #include <string>
 #include <unistd.h>
@@ -20,22 +19,20 @@ static bool readByteWithTimeout(unsigned char &out, int timeout_ms) {
 }
 
 static std::string readEscapeSequence() {
-  // After ESC, arrow keys usually send: '[' then a final letter.
   unsigned char b1;
   if (!readByteWithTimeout(b1, 30))
-    return {}; // no follow-up => plain ESC
+    return {};
 
   std::string seq;
   seq.push_back((char)b1);
 
-  // For CSI sequences, read one more byte (C/D/A/B). Good enough for arrows.
   if (b1 == '[') {
     unsigned char b2;
     if (readByteWithTimeout(b2, 5))
       seq.push_back((char)b2);
   }
 
-  return seq; // e.g. "[" "C" or empty for plain ESC
+  return seq;
 }
 
 static std::string readNextChars(uint8_t len) {

@@ -7,6 +7,7 @@
 
 void drawStatusLine(const std::string &text);
 void clearStatusLine();
+void clearScreen();
 int getTerminalRows();
 std::string createStatusLine(State &state);
 

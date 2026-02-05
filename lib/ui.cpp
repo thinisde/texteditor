@@ -71,3 +71,5 @@ void clearStatusLine() {
   // Restore cursor
   std::cout << "\033[u" << std::flush;
 }
+
+void clearScreen() { std::cout << "\033[2J\033[H" << std::flush; }
