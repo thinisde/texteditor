@@ -12,17 +12,17 @@ int main(int argc, char **argv) {
   State state;
 
   if (argc > 1) {
-    if (!loadFile(state, argv[1])) {
-      state.input = "";
-      state.path = "untitled";
-    } else {
-      state.path = argv[1];
-      state.cursor = 0;
+    state.path = argv[1];
+    if (!loadFile(state)) {
+      state.input.clear();
     }
+  } else {
+    state.path = "untitled";
   }
 
   drawStatusLine(createStatusLine(state));
   redraw(state.input, state.cursor);
+  std::cout << std::flush;
 
   while (true) {
     int done = handleEvent(state);

@@ -63,8 +63,8 @@ void redraw(const std::string &s, size_t cursor) {
   std::cout << "\033[" << row << ";" << col << "H" << std::flush;
 }
 
-bool loadFile(State &state, const std::string &path) {
-  std::ifstream file(path, std::ios::in | std::ios::binary);
+bool loadFile(State &state) {
+  std::ifstream file(state.path, std::ios::in | std::ios::binary);
   if (!file)
     return false;
 

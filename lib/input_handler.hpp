@@ -10,7 +10,7 @@ void disableRawMode();
 void handleSignal(int signal);
 void enableRawMode();
 
-bool loadFile(State &state, const std::string &path);
+bool loadFile(State &state);
 bool saveFile(State &state);
 
 void indexToRowCol(std::string s, size_t idx, int &row, int &col);

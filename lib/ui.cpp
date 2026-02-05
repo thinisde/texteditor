@@ -57,7 +57,8 @@ std::string createStatusLine(State &state) {
   if (state.getCommand().length() > 0) {
     return state.getCommand();
   }
-  return mode + " | Len: " + std::to_string(state.input.size());
+  return mode + " |  " + state.path +
+         " | Len: " + std::to_string(state.input.size());
 }
 
 void clearStatusLine() {
