@@ -35,9 +35,33 @@ void enableRawMode() {
   tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
 }
 
+static void cursorRowColFromIndex(const std::string &s, size_t idx, int &row,
+                                  int &col) {
+  row = 1;
+  col = 1;
+  idx = std::min(idx, s.size());
+
+  for (size_t i = 0; i < idx; i++) {
+    if (s[i] == '\n') {
+      row++;
+      col = 1;
+    } else {
+      col++;
+    }
+  }
+}
+
 void redraw(const std::string &s, size_t cursor) {
-  constexpr int prefix_len = 0;
-  std::cout << "\r\033[K" << s;
-  std::cout << "\r\033[" << (prefix_len + cursor) << "C";
-  std::cout << std::flush;
+  // Clear screen and go home
+  std::cout << "\033[2J\033[H";
+
+  // Print buffer
+  std::cout << s;
+
+  // Compute cursor position
+  int row, col;
+  cursorRowColFromIndex(s, cursor, row, col);
+
+  // Move cursor there
+  std::cout << "\033[" << row << ";" << col << "H" << std::flush;
 }

@@ -3,7 +3,7 @@
 
 State::State() : currentState(0), command("") {}
 
-void State::toggleState() { currentState = !currentState; }
+void State::setState(uint8_t newState) { currentState = newState; }
 
 uint8_t State::getState() const { return currentState; }
 

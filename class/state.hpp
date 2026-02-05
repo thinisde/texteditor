@@ -6,7 +6,7 @@ class State {
 public:
   State();
   uint8_t getState() const;
-  void toggleState();
+  void setState(uint8_t state);
   void setCommand(std::string newCommand);
   const std::string &getCommand() const;
 

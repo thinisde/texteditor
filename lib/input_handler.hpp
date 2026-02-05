@@ -9,7 +9,8 @@ void disableRawMode();
 void handleSignal(int signal);
 void enableRawMode();
 
-int getTerminalRows();
+static void cursorRowColFromIndex(const std::string &s, size_t idx, int &row,
+                                  int &col);
 
 void redraw(const std::string &s, size_t cursor);
 

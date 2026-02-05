@@ -55,11 +55,10 @@ int handleEvent(State &state, std::string &input, size_t &cursor) {
 
   if (n <= 0)
     return 0;
-
   switch (c) {
   case '\r':
   case '\n':
-    return 1;
+    return handleEnter(state, input, cursor);
   case 27: {
     std::string seq = readEscapeSequence();
 

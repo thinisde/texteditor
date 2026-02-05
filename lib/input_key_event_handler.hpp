@@ -12,6 +12,7 @@ void handleInsert(State &state, std::string &input, size_t &cursor,
                   unsigned char c);
 
 void handleDelete(State &state, std::string &input, size_t &cursor);
+int handleEnter(State &state, std::string &input, size_t &cursor);
 
 void handleDoublePoints(State &state, std::string &input, size_t &cursor,
                         unsigned char c);
