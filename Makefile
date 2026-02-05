@@ -20,6 +20,6 @@ clean:
 	rm -f $(OBJ) $(TARGET)
 
 run: $(TARGET)
-	./$(TARGET)
+	./$(TARGET) file
 
 .PHONY: all clean run
