@@ -8,6 +8,6 @@
 void drawStatusLine(const std::string &text);
 void clearStatusLine();
 int getTerminalRows();
-std::string createStatusLine(State &state, std::string &input);
+std::string createStatusLine(State &state);
 
 #endif

@@ -10,6 +10,9 @@ public:
   void setCommand(std::string newCommand);
   const std::string &getCommand() const;
 
+  size_t cursor = 0;
+  std::string input;
+
 private:
   uint8_t currentState = 0;
   std::string command;

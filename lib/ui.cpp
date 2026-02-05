@@ -36,7 +36,7 @@ void drawStatusLine(const std::string &text) {
   std::cout << "\033[u" << std::flush;
 }
 
-std::string createStatusLine(State &state, std::string &input) {
+std::string createStatusLine(State &state) {
   std::string mode = "VIEW";
 
   switch (state.getState()) {
@@ -55,7 +55,7 @@ std::string createStatusLine(State &state, std::string &input) {
   if (state.getCommand().length() > 0) {
     return state.getCommand();
   }
-  return mode + " | Len: " + std::to_string(input.size());
+  return mode + " | Len: " + std::to_string(state.input.size());
 }
 
 void clearStatusLine() {

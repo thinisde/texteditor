@@ -8,13 +8,16 @@
 
 void handleESC(State &state);
 
-void handleInsert(State &state, std::string &input, size_t &cursor,
-                  unsigned char c);
+void handleInsert(State &state, unsigned char c);
 
-void handleDelete(State &state, std::string &input, size_t &cursor);
-int handleEnter(State &state, std::string &input, size_t &cursor);
+void handleDelete(State &state);
+int handleEnter(State &state);
 
-void handleDoublePoints(State &state, std::string &input, size_t &cursor,
-                        unsigned char c);
+void handleDoublePoints(State &state, unsigned char c);
+
+void moveCursorUp(State &state);
+void moveCursorDown(State &state);
+void moveCursorLeft(State &state);
+void moveCursorRight(State &state);
 
 #endif

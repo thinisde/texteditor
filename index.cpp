@@ -10,19 +10,16 @@ int main() {
   clearScreen();
   enableRawMode();
 
-  std::string input;
-  size_t cursor = 0;
-
   State state;
 
-  drawStatusLine(createStatusLine(state, input));
+  drawStatusLine(createStatusLine(state));
 
   while (true) {
-    int done = handleEvent(state, input, cursor);
+    int done = handleEvent(state);
 
-    redraw(input, cursor);
+    redraw(state.input, state.cursor);
 
-    drawStatusLine(createStatusLine(state, input));
+    drawStatusLine(createStatusLine(state));
 
     if (done) {
       clearStatusLine();
@@ -31,6 +28,6 @@ int main() {
   }
 
   disableRawMode();
-  std::cout << "\nYou entered: " << input << std::endl;
+  std::cout << "\nYou entered: " << state.input << std::endl;
   return 0;
 }

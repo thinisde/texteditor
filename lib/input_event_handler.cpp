@@ -49,7 +49,7 @@ static std::string readNextChars(uint8_t len) {
   return seq;
 };
 
-int handleEvent(State &state, std::string &input, size_t &cursor) {
+int handleEvent(State &state) {
   unsigned char c;
   ssize_t n = ::read(STDIN_FILENO, &c, 1);
 
@@ -58,7 +58,7 @@ int handleEvent(State &state, std::string &input, size_t &cursor) {
   switch (c) {
   case '\r':
   case '\n':
-    return handleEnter(state, input, cursor);
+    return handleEnter(state);
   case 27: {
     std::string seq = readEscapeSequence();
 
@@ -68,20 +68,25 @@ int handleEvent(State &state, std::string &input, size_t &cursor) {
     }
 
     if (seq.size() >= 2 && seq[0] == '[') {
-      if (seq[1] == 'C' && cursor < input.size())
-        cursor++;
-      else if (seq[1] == 'D' && cursor > 0)
-        cursor--;
+      if (seq == "[D")
+        moveCursorLeft(state);
+      if (seq == "[C")
+        moveCursorRight(state);
+      if (seq == "[A")
+        moveCursorUp(state);
+      if (seq == "[B")
+        moveCursorDown(state);
     }
+
     break;
   }
   case 127:
   case 8:
-    handleDelete(state, input, cursor);
+    handleDelete(state);
     break;
   default:
     if (c >= 32 && c <= 126) {
-      handleInsert(state, input, cursor, c);
+      handleInsert(state, c);
     }
     break;
   }
