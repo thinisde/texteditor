@@ -1,6 +1,6 @@
 CXX      := clang++
 CXXFLAGS := -std=c++17 -Wall -Wextra -O2
-TARGET   := app
+TARGET   := app.out
 
 SRC := index.cpp \
        $(wildcard class/*.cpp) \
